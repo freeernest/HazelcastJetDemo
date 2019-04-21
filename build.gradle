@@ -1,0 +1,73 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.4.RELEASE'
+    }
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+mainClassName = 'com.hazelcast.bootiful.MicroserviceApplication'
+
+jar {
+    baseName = 'jet-streams'
+    version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenLocal()
+
+    maven {
+        name 'Hazelcast OSS Snapshots'
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+
+    maven {
+        name 'Hazelcast Enterprise Releases'
+        url 'https://repository-hazelcast-l337.forge.cloudbees.com/release/'
+    }
+
+    maven {
+        name 'Hazelcast Enterprise Snapshots'
+        url 'https://repository-hazelcast-l337.forge.cloudbees.com/snapshot/'
+    }
+}
+
+
+dependencies {
+
+    // hazelcast
+    compile "com.hazelcast:hazelcast-all:${hazelcastVersion}"
+    compile "com.hazelcast.jet:hazelcast-jet:${hazelcastJetVersion}"
+    // TODO: remove
+    // workaround https://github.com/hazelcast/hazelcast-jet/issues/366
+    compile 'javax.cache:cache-api:1.0.0'
+
+    // stuff
+    compileOnly('org.projectlombok:lombok:1.16.10')
+    compile('org.codehaus.groovy:groovy-all:2.4.7')
+
+    // spring-boot
+    compile('org.springframework.boot:spring-boot-starter-cache:2.1.4.RELEASE')
+    compile('org.springframework.boot:spring-boot-starter-web:2.1.4.RELEASE')
+
+    // test dependencies
+    testCompile('org.springframework.boot:spring-boot-starter-test:2.1.4.RELEASE')
+}
+
+task collectJars(type: Copy) {
+    into "$buildDir/dependencies"
+    from configurations.testRuntime
+}
