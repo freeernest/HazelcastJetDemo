@@ -24,7 +24,7 @@ public class WordService {
                 .map(WordUtil::cleanWord)
                 .filter(m -> m.length() >= 5)
                 .collect(toIMap(
-                        //artist + COUNTS_SOURCE,
+                        artist + COUNTS_SOURCE,
                         m -> m,
                         m -> 1,
                         Integer::sum));

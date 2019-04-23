@@ -10,13 +10,6 @@ import com.hazelcast.jet.JetInstance;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * Hazelcast IMDG and Jet Spring configuration
- *
- * @author Viktor Gamov on 3/16/17.
- *         Twitter: @gamussa
- * @since 0.0.1
- */
 @Configuration
 public class HazelcastJetConfig {
 

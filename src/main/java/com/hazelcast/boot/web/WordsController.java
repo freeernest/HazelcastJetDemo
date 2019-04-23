@@ -13,9 +13,6 @@ import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-/**
- * Created by vikgamov on 4/3/17.
- */
 @RestController
 @RequestMapping("wordcount")
 public class WordsController {

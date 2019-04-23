@@ -52,7 +52,7 @@ public class WordCountWithDistributedStreams {
                 .map(WordUtil::cleanWord)
                 .filter(m -> m.length() >= 5)
                 .collect(toIMap(
-                        //"counts",
+                        "counts",
                         m -> m,
                         m -> 1,
                         Integer::sum));
@@ -68,7 +68,7 @@ public class WordCountWithDistributedStreams {
                 .sorted()
                 .limit(20)
                 .collect(toIMap(
-                        //"top20",
+                        "top20",
                         Map.Entry::getKey,
                         Map.Entry::getValue,
                         (left, right) -> left));
