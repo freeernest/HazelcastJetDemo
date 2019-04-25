@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.1.4.RELEASE'
+        springBootVersion = '1.5.2.RELEASE'
     }
     repositories {
         jcenter()
@@ -16,7 +16,7 @@ apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
-mainClassName = 'com.hazelcast.bootiful.MicroserviceApplication'
+//mainClassName = 'com.hazelcast.bootiful.MicroserviceApplication'
 
 jar {
     baseName = 'jet-streams'
@@ -51,6 +51,7 @@ dependencies {
     // hazelcast
     compile "com.hazelcast:hazelcast-all:${hazelcastVersion}"
     compile "com.hazelcast.jet:hazelcast-jet:${hazelcastJetVersion}"
+    //compile "com.hazelcast.jet:hazelcast-jet-java.util.stream:0.1"
     // TODO: remove
     // workaround https://github.com/hazelcast/hazelcast-jet/issues/366
     compile 'javax.cache:cache-api:1.0.0'
@@ -60,11 +61,11 @@ dependencies {
     compile('org.codehaus.groovy:groovy-all:2.4.7')
 
     // spring-boot
-    compile('org.springframework.boot:spring-boot-starter-cache:2.1.4.RELEASE')
-    compile('org.springframework.boot:spring-boot-starter-web:2.1.4.RELEASE')
+    compile('org.springframework.boot:spring-boot-starter-cache')
+    compile('org.springframework.boot:spring-boot-starter-web')
 
     // test dependencies
-    testCompile('org.springframework.boot:spring-boot-starter-test:2.1.4.RELEASE')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 task collectJars(type: Copy) {

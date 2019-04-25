@@ -1,6 +1,5 @@
 package com.hazelcast.boot.service;
 
-import com.hazelcast.jet.stream.DistributedCollectors;
 import com.hazelcast.jet.stream.IStreamMap;
 import com.hazelcast.util.WordUtil;
 import org.springframework.stereotype.Service;
