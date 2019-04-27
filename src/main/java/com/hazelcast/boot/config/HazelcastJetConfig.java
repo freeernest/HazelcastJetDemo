@@ -7,8 +7,12 @@ import com.hazelcast.config.Config;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.jet.Jet;
 import com.hazelcast.jet.JetInstance;
+import com.hazelcast.jet.config.InstanceConfig;
+import com.hazelcast.jet.config.JetConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import static java.lang.Runtime.getRuntime;
 
 @Configuration
 public class HazelcastJetConfig {
@@ -20,14 +24,17 @@ public class HazelcastJetConfig {
     }
 
     @Bean
-    public ClientConfig clientConfig() {
-        ClientConfig clientCofig = new XmlClientConfigBuilder().build();
-        return clientCofig;
+    public JetConfig jetConfig() {
+        final JetConfig cfg = new JetConfig();
+        cfg.getMetricsConfig().setMetricsForDataStructuresEnabled(true);
+        cfg.setInstanceConfig(new InstanceConfig().setCooperativeThreadCount(
+                Math.max(1, getRuntime().availableProcessors() / 2)));
+        return cfg;
     }
 
     @Bean
-    public JetInstance jetInstance(ClientConfig cc) {
-        return Jet.newJetClient(cc);
+    public JetInstance jetInstance(JetConfig cc) {
+        return Jet.newJetInstance(cc);
     }
 
     @Bean
