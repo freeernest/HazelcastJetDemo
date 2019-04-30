@@ -1,5 +1,6 @@
 package com.hazelcast.util;
 
+import com.hazelcast.core.IMap;
 import com.hazelcast.jet.JetInstance;
 
 import java.io.InputStream;
@@ -48,15 +49,15 @@ public class WordUtil {
         reader.close();
     }
 
-    public static String printResults(String fileName, JetInstance jetInstance) {
-        final int limit = 100;
+    public static String printResults(IMap<String, Long> resultsMap, int limit) {
         StringBuilder sb = new StringBuilder();
+        sb.append("\n");
         sb.append(" Top " + limit + " entries are:\n");
-        final Map<String, Long> counts = jetInstance.getMap(fileName + COUNTS_SOURCE);
+        sb.append("\n");
         sb.append("/----------------+----------------\\\n");
         sb.append("|      Count     |      Word      |\n");
         sb.append("|----------------+----------------|\n");
-        counts.entrySet().stream()
+        resultsMap.entrySet().stream()
                 .sorted(comparingLong(Map.Entry<String, Long>::getValue).reversed())
                 .limit(limit)
                 .forEach(e -> sb.append(String.format("|%15d | %-15s|%n", e.getValue(), e.getKey())));

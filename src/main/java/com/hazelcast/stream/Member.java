@@ -1,15 +1,10 @@
 package com.hazelcast.stream;
 
-import com.hazelcast.config.XmlConfigBuilder;
 import com.hazelcast.jet.Jet;
 import com.hazelcast.jet.JetInstance;
 import com.hazelcast.jet.config.InstanceConfig;
 import com.hazelcast.jet.config.JetConfig;
 
-import java.util.Map;
-
-import static com.hazelcast.util.WordUtil.SOURCE_SUFFIX;
-import static com.hazelcast.util.WordUtil.fillMapWithData;
 import static java.lang.Runtime.getRuntime;
 
 public class Member {

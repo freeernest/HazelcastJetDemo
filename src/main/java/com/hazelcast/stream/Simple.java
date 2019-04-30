@@ -7,7 +7,7 @@ import static com.hazelcast.util.WordUtil.*;
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 /**
- * Simple and naïve version of word count.
+ * Simple and naive version of word count.
  * Uses `map.compute`
  */
 public class Simple {
