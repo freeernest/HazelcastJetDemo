@@ -35,7 +35,7 @@ public class WordService {
     }
 
     public  void loadFile (String fileName, JetInstance jet){
-        System.out.println("Loading The Complete Works of William Shakespeare");
+        System.out.println("Loading the file \"" + fileName + "\"");
         try {
             long[] lineNum = {0};
             Map<Long, String> bookLines = new HashMap<>();

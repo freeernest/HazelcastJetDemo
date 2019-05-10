@@ -1,10 +1,12 @@
 package com.hazelcast.boot.web;
 
 import com.hazelcast.boot.service.WordService;
+import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.jet.JetInstance;
 import com.hazelcast.jet.pipeline.Pipeline;
 import com.hazelcast.util.WordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,12 +21,14 @@ public class WordsController {
 
     private WordService wordService;
     private JetInstance jetInstance;
+    private HazelcastInstance hazelcastInstance;
 
 
     @Autowired
-    public WordsController(WordService wordService, JetInstance jetInstance) {
+    public WordsController(WordService wordService, JetInstance jetInstance, @Qualifier("hz_instance") HazelcastInstance hazelcastInstance) {
         this.wordService = wordService;
         this.jetInstance = jetInstance;
+        this.hazelcastInstance = hazelcastInstance;
     }
 
     @RequestMapping(
@@ -53,16 +57,15 @@ public class WordsController {
             method = GET,
             path = "/distributed_cache/{propertyName}")
     public String getFromDistributedCache(@PathVariable("propertyName") String propertyName) {
-
-        return "";
+        return (String) hazelcastInstance.getMap("distributed_cache").get(propertyName);
     }
 
     @RequestMapping(
             method = POST,
             path = "/distributed_cache/{propertyName}/{value}")
-    public String setToDistributedCache(@PathVariable("propertyName") String propertyName, @PathVariable("value") String artist) {
-
-        return "";
+    public String setToDistributedCache(@PathVariable("propertyName") String propertyName, @PathVariable("value") String value) {
+        hazelcastInstance.getMap("distributed_cache").put(propertyName, value).toString();
+        return "Succeeded";
     }
 
 

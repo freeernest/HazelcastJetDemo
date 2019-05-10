@@ -7,6 +7,7 @@ import com.hazelcast.jet.Jet;
 import com.hazelcast.jet.JetInstance;
 import com.hazelcast.jet.config.InstanceConfig;
 import com.hazelcast.jet.config.JetConfig;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -36,6 +37,7 @@ public class HazelcastJetConfig {
     }
 
     @Bean
+    @Qualifier("hz_instance")
     public HazelcastInstance hazelcastInstance(JetInstance jetInstance) {
         return jetInstance.getHazelcastInstance();
     }
