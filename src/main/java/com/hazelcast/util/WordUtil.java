@@ -17,7 +17,10 @@ import static java.util.Comparator.comparingLong;
  */
 public class WordUtil {
     public static final Pattern PATTERN = Pattern.compile("\\W+");
-    public static final String[] EXCLUDES = {"which", "would", "could", "that", "with", "were", "this", "what", "there", "from", "their", "those", "chorus"};
+    public static final String[] EXCLUDES =
+            {"which", "would", "could", "that", "with", "were", "this", "what", "there",
+                    "from", "their", "those", "chorus", "have", "them", "when", "been",
+                    "they", "will", "more", "about", "into", "then", "your"};
 
     public static final String SOURCE_SUFFIX = "_source";
     public static final String COUNTS_SOURCE = "_counts";

@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static com.hazelcast.jet.Traversers.traverseArray;
 import static com.hazelcast.jet.aggregate.AggregateOperations.counting;
@@ -28,6 +29,7 @@ public class WordService {
                 .flatMap(e -> traverseArray(PATTERN.split(e.getValue().toLowerCase())))
                 .map(WordUtil::cleanWord)
                 .filter(m -> m.length() >= 4)
+                .filter(e -> Stream.of(EXCLUDES).noneMatch(s -> s.equals(e)))
                 .groupingKey(wholeItem())
                 .aggregate(counting())
                 .drainTo(Sinks.map(fileName + COUNTS_SOURCE));

@@ -32,6 +32,7 @@ public class WordCountWithStreams {
         final long start = System.nanoTime();
         Map<String, Integer> counts = streamMap.stream()
                 .flatMap(m -> Stream.of(PATTERN.split(m.getValue())))
+                .filter(e -> Stream.of(EXCLUDES).noneMatch(s -> s.equals(e)))
                 .map(String::toLowerCase)
                 .map(WordUtil::cleanWord)
                 .filter(m -> m.length() >= 5)
