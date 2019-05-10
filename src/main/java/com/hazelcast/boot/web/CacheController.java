@@ -20,13 +20,14 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping("cache")
 public class CacheController {
 
-    private HazelcastInstance hazelcastInstance;
+    private JetInstance jetInstance;
     private CacheService cacheService;
 
 
     @Autowired
-    public CacheController( @Qualifier("hz_instance") HazelcastInstance hazelcastInstance, CacheService cacheService) {
-        this.hazelcastInstance = hazelcastInstance;
+    public CacheController(CacheService cacheService, JetInstance jetInstance) { //@Qualifier("hz_instance") HazelcastInstance hazelcastInstance,
+        //this.hazelcastInstance = hazelcastInstance;
+        this.jetInstance = jetInstance;
         this.cacheService = cacheService;
     }
 
@@ -34,14 +35,14 @@ public class CacheController {
             method = GET,
             path = "/distributed/{propertyName}")
     public String getFromDistributedCache(@PathVariable("propertyName") String propertyName) {
-        return (String) hazelcastInstance.getMap("distributed_cache").get(propertyName);
+        return (String) jetInstance.getHazelcastInstance().getMap("distributed_cache").get(propertyName);
     }
 
     @RequestMapping(
             method = POST,
             path = "/distributed/{propertyName}/{value}")
     public String setToDistributedCache(@PathVariable("propertyName") String propertyName, @PathVariable("value") String value) {
-        hazelcastInstance.getMap("distributed_cache").put(propertyName, value);
+        jetInstance.getHazelcastInstance().getMap("distributed_cache").put(propertyName, value);
         return "Succeeded";
     }
 

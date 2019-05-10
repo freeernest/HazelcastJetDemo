@@ -20,14 +20,14 @@ public class WordsController {
 
     private WordService wordService;
     private JetInstance jetInstance;
-    private HazelcastInstance hazelcastInstance;
+    //private HazelcastInstance hazelcastInstance;
 
 
     @Autowired
-    public WordsController(WordService wordService, JetInstance jetInstance, @Qualifier("hz_instance") HazelcastInstance hazelcastInstance) {
+    public WordsController(WordService wordService, JetInstance jetInstance){//, @Qualifier("hz_instance") HazelcastInstance hazelcastInstance) {
         this.wordService = wordService;
         this.jetInstance = jetInstance;
-        this.hazelcastInstance = hazelcastInstance;
+        //this.hazelcastInstance = hazelcastInstance;
     }
 
     @RequestMapping(
@@ -38,7 +38,7 @@ public class WordsController {
             wordService.loadFile(artist, jetInstance);
             Pipeline p = wordService.buildPipeline(artist);
             jetInstance.newJob(p).join();
-            IMap<Object, Object> map = hazelcastInstance.getMap(artist);
+            //IMap<Object, Object> map = hazelcastInstance.getMap(artist);
         }
 
         return WordUtil.printResults(jetInstance.getMap(artist + COUNTS_SOURCE), limit);
@@ -53,7 +53,7 @@ public class WordsController {
             wordService.loadFile(artist, jetInstance);
             Pipeline p = wordService.buildPipeline(artist);
             jetInstance.newJob(p).join();
-            hazelcastInstance.getMap(artist);
+            //hazelcastInstance.getMap(artist);
         }
         return WordUtil.printResults(jetInstance.getMap(artist + COUNTS_SOURCE), limit);
     }
