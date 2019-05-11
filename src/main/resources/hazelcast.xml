@@ -4,7 +4,7 @@
         xmlns="http://www.hazelcast.com/schema/config"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <management-center enabled="true">http://localhost:8080/mancenter</management-center>
+    <management-center enabled="true">http://localhost:8080/hazelcast-mancenter</management-center>
     <network>
         <join>
             <multicast enabled="false"/>
@@ -16,5 +16,7 @@
     <map name="source">
         <backup-count>1</backup-count>
     </map>
+
+    <license-key>gmQYSK9iZMH8P5EBjDnwAukCNGJf20ydq1WUOXb6Tl68400001010110100101090900110001016091090110</license-key>
 
 </hazelcast>
