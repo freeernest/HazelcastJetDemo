@@ -16,11 +16,20 @@ apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
-mainClassName = 'com.hazelcast.boot.StarterApp'
+mainClassName = 'com.hazelcast.stream.JetMember'
 
 jar {
     baseName = 'jet-streams'
     version = '0.0.1-SNAPSHOT'
+    manifest {
+        //attributes 'Main-Class': 'com.hazelcast.boot.StarterApp'
+        attributes 'Main-Class': 'com.hazelcast.stream.JetMember'
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
+bootJar {
+    launchScript()
 }
 
 sourceCompatibility = 1.8

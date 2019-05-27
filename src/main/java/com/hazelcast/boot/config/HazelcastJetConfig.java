@@ -1,6 +1,5 @@
 package com.hazelcast.boot.config;
 
-import com.hazelcast.boot.service.WordService;
 import com.hazelcast.config.ClasspathXmlConfig;
 import com.hazelcast.config.Config;
 import com.hazelcast.core.HazelcastInstance;

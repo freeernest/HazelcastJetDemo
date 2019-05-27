@@ -1,7 +1,6 @@
 package com.hazelcast.util;
 
 import com.hazelcast.core.IMap;
-import com.hazelcast.jet.JetInstance;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
